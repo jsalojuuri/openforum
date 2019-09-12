@@ -1,23 +1,11 @@
-# Tietokantasovellus yksinkertaiselle keskustelufoorumille.
+# Open Forum - Tietokantasovellus yksinkertaiselle keskustelufoorumille.
 
-Tämä on harjoitustyö Helsingin yliopiston kurssille TKT20011 - Tietokantasovellus.
+Open Forumilla käyttäjien on mahdollista julkaista kirjoituksia (topics) eri aihealueiden alle (forums) ja kommentoida kaikkia palvelun kirjoituksia. Omia kirjoituksia ja kommentteja voi myös muokata jälkikäteen. Vain pääkäyttäjät voivat luoda uusia aihealueita. Katso tarkemmat käyttötapaukset oheisesta dokumentaatiosta.
 
-## Keskeisimmät toiminnot (alustavasti)
+## Linkit:
 
-* rekisteröityminen ja kirjautuminen palveluun
-* viestin lisääminen foorumille (esimääritetyn keskusteluaiheen alle)
-* kommentin kirjoittaminen viestiin
-* viestin tai kommentin poistaminen
-* käyttäjäprofiilin (käyttäjätietojen) muokkaus
-* keskusteluaiheiden lisääminen, muokkaus ja poistaminen foorumilla (vain admin)
-* viestien etsiminen aiheen, kirjoittajien tai vapaan sisältöhaun avulla
+* [Keskeisimmät käyttötapaukset](./documentation/usecases.txt)
+* [Tietokantakaavio](./documentation/database_schema.JPG)
 
-## Keskeisimmät palvelun näkymät 
 
-* kirjautuminen
-* rekisteröityminen
-* viestit kommentteineen
-* viestien haku ja hakutulossivu
-* (käyttäjän profiilisivu)
-* (käyttäjien ja aiheiden hallintasivut adminille)
 

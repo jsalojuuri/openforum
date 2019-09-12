@@ -1,0 +1,11 @@
+## Keskeisimmät käyttötapaukset (alustavasti)
+
+* listaus palvelun viimeisimmistä kirjoituksista *-- 1. versio tehty*
+* kirjoitusten lisääminen foorumille *-- 1. versio tehty*
+* kirjoitusten etsiminen haun avulla
+* kirjoituksen kommentointi
+* kirjoituksen tai kommentin muokkaaminen tai poistaminen
+* rekisteröityminen ja kirjautuminen palveluun
+* käyttäjäprofiilin (käyttäjätietojen) muokkaus
+* keskusteluaiheiden lisääminen, muokkaus ja poistaminen
+
