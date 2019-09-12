@@ -4,6 +4,7 @@ Open Forumilla käyttäjien on mahdollista julkaista kirjoituksia (topics) eri a
 
 ## Linkit:
 
+* [Projekti Herokussa](http://tsoha-open-forum.herokuapp.com)
 * [Keskeisimmät käyttötapaukset](./documentation/usecases.txt)
 * [Tietokantakaavio](./documentation/database_schema.JPG)
 
