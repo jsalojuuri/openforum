@@ -2,23 +2,47 @@
 
 {% block body %}
 
-  <table class="table"> 
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">Topic</th>
-        <th scope="col">Text content</th>
-        <th scope="col">Created</th>
-        <th scope="col">Modified</th>
-      </tr>
-    </thead>
-    {% for topic in topics %}
-    <tr>
-      <td>{{ topic.title }}</td>
-      <td>{{ topic.bodytxt }}</td>
-      <td>{{ topic.date_created }}</td>
-      <td>{{ topic.date_modified }}</td>
-    </tr>
-    {% endfor %}
-  </table>
+<div class="container mt-2">
+  <div class="row">
+    <div class="col-10">
+      <div class="table-responsive">
+        <table class="table table-striped"> 
+          <thead class="thead">
+            <tr>
+              <th scope="col">Aihe</th>
+              <th scope="col">Tekstisisältö</th>
+              <th scope="col">Kirjoittaja (account_id)</th>
+              <th scope="col">Muokattu viimeksi</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
 
+            </tr>
+          </thead>
+          {% for topic in topics %}
+          <tr>
+            <td>{{ topic.title }}</td>
+            <td>{{ topic.bodytxt }}</td>
+            <td>{{ topic.account_id }}</td>
+            <td>{{ topic.date_modified }}</td>
+            {% if current_user.id == topic.account_id %}
+            <td>
+              <form method="POST" action="{{ url_for('topic_delete') }}" style="display: inline">
+                <input type="hidden" value="{{topic.title}}" name="title">
+                <input type="submit" value="Poista">
+              </form>
+            </td>
+            <td>
+              <form method="GET" action="{{ url_for('topic_update', topic_id=topic.id) }}" style="display: inline">
+                <input type="submit" value="Muokkaa">
+              </form>
+            </td>
+            {% endif %}
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+  
 {% endblock %}

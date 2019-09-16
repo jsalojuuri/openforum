@@ -8,5 +8,9 @@ Open Forumilla käyttäjien on mahdollista julkaista kirjoituksia (topics) eri a
 * [Keskeisimmät käyttötapaukset](./documentation/usecases.txt)
 * [Tietokantakaavio](./documentation/database_schema.JPG)
 
+## Testitunnukset Heroku-applikaatioon:
+
+* käyttäjätunnus: user
+* salasana: user
 
 

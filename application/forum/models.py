@@ -7,7 +7,9 @@ class Topic(db.Model):
     title = db.Column(db.String(144), nullable=False)
     bodytxt = db.Column(db.String(14444), nullable=False)
 
-    def __init__(self, title):
+    account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
+
+    def __init__(self, title, bodytxt):
         self.title = title
-        # self.bodytxt = bodytxt
-        # self.date_created = date_created
+        self.bodytxt = bodytxt
+       
