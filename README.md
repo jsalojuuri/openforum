@@ -10,7 +10,12 @@ Open Forumilla käyttäjien on mahdollista julkaista kirjoituksia (topics) eri a
 
 ## Testitunnukset Heroku-applikaatioon:
 
+Ensimmäinen käyttäjä:
 * käyttäjätunnus: user
 * salasana: user
+
+Toinen käyttäjä:
+* käyttäjätunnus: admin
+* salasana: admin
 
 
