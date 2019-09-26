@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<p class="text-danger">{{ error }}</p> 
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-6">
+            <form method="POST" action="{{ url_for('forum_update_form', forum_id=forum_id) }}">
+                <input type="hidden" value="{{forum.id}}" name="forumid">
+                <p class="h2 mb-4">Muokkaa foorumia</p>
+                <div class="form-group">
+                    {{ form.name.label }}
+                    {{ form.name(class="form-control text-info") }}
+                </div>
+                <div class="form-group">
+                    {{ form.description.label }}
+                    <textarea class="form-control text-info" type="text" rows="10" name="newdescription">{{ form.description.data }}</textarea>        
+                </div>
+                <input class="form-control btn-primary" type="submit" value="Päivitä">
+                
+            </form>
+        </div>
+    </div>
+    <br>
+    <div class="row mb-2">
+        <div class="col-10">
+                
+        </div>
+    </div>
+</div>
+
+{% endblock %}

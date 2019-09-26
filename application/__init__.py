@@ -1,5 +1,6 @@
 # Tuodaan Flask käyttöön
 from flask import Flask
+
 app = Flask(__name__)
 
 # Tuodaan SQLAlchemy käyttöön
@@ -31,6 +32,9 @@ from application.forum import views
 
 from application.auth import models
 from application.auth import views
+
+from application.admin import models
+from application.admin import views
 
 # Kirjautuminen
 from application.auth.models import User

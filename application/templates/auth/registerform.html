@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% from "topics/_formhelpers.html" import render_field %}
+{% from "_formhelpers.html" import render_field %}
 
 {% block body %}
 <p class="text-danger">{{ error }}</p> 
@@ -14,7 +14,7 @@
                         {{ render_field(form.name, type="text", class="form-control", id="name", placeholder="Nimi") }} 
                 </div>
                 <div class="form-group">
-                        {{ render_field(form.username, type="text", class="form-control", id="username", placeholder="Käyttäjänimi") }} 
+                        {{ render_field(form.username, type="text", class="form-control", id="username", placeholder="Käyttäjätunnus") }} 
                 </div>
                 <div class="form-group">
                         {{ render_field(form.password, type="text", class="form-control", id="password", placeholder="Salasana") }} 

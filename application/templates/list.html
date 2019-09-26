@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-10">
+      <p class="h2 mb-4">Foorumit</p>
+      <div class="table-responsive">
+          
+        <table class="table table-striped"> 
+          <thead class="thead">
+            <tr>
+              <th scope="col">Foorumi</th>
+              <th scope="col">Kirjoituksia</th>
+              <th scope="col">Viimeisin kirjoitus</th>
+              <th scope="col"></th>
+
+            </tr>
+          </thead>
+
+          {% for forum in forums %}
+          <tr>
+            <td>{{ forum.name }}</td>
+            <td>{{ forum.topic_count }}</td>
+            <td>{{ forum.date_modified }}</td>
+
+            <td>
+              <form method="GET" action="{{ url_for('topic_index', forum_id=forum.id) }}" style="display: inline">
+                <input class="form-control btn-primary" type="submit" value="Valitse">
+              </form>
+            </td>
+
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+  
+{% endblock %}

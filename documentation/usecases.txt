@@ -1,11 +1,12 @@
-## Keskeisimmät käyttötapaukset (alustavasti)
+## Keskeisimmät käyttötapaukset
 
-* listaus palvelun viimeisimmistä kirjoituksista *-- 1. versio tehty*
-* kirjoitusten lisääminen foorumille *-- 1. versio tehty*
-* kirjoitusten etsiminen haun avulla
-* kirjoituksen kommentointi
-* kirjoituksen tai kommentin muokkaaminen tai poistaminen
-* rekisteröityminen ja kirjautuminen palveluun
-* käyttäjäprofiilin (käyttäjätietojen) muokkaus
-* keskusteluaiheiden lisääminen, muokkaus ja poistaminen
-
+* rekisteröityminen ja kirjautuminen palveluun *-- 1. versio tehty*
+* listaus ja tilastointia palvelun foorumeista *-- 1. versio tehty*
+* listaus ja tilastointia palvelun kirjoituksista foorumeittain *-- 1. versio tehty*
+* kirjoitusten lisääminen, muokkaaminen ja poistaminen *-- 1. versio tehty*
+* käyttäjäprofiilin (käyttäjätietojen) muokkaus, omien kirjoitusten muokkaaminen ja poistaminen sekä käyttäjäkohtaisia tilastoja käyttäjän omilla sivuilla *.. 1. versio tehty*
+* foorumien lisääminen, muokkaus ja poistaminen sekä palvelun käytön tilastoja ylläpitäjän hallintapaneelissa *.. 1. versio tehty*
+* mahdollisuus kommentoida kirjoitusta
+* kommentin muokkaaminen ja poistaminen
+* kirjoituskohtaisen tilastoinnin kehitys: kirjoituksen lukukerrat ja kuinka moni käyttäjä on nähnyt kirjoituksen
+* hakutoiminnallisuus, jolla mahdollista etsiä hakusanalla fooremeita, kirjoituksia ja kommentteja

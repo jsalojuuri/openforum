@@ -21,7 +21,7 @@ def auth_login():
 
 
     login_user(user)
-    return redirect(url_for("topic_index")) 
+    return redirect(url_for("forum_index")) 
 
 # uloskirjautuminen
 @app.route("/auth/logout")
@@ -42,12 +42,12 @@ def auth_register():
 
     if username:
         return render_template("auth/registerform.html", form = form,
-                               error = "Käyttäjänimi jo käytössä. Valitse uusi käyttäjänimi ja lähetä tiedot uudelleen.")
+                               error = "Käyttäjätunnus jo käytössä. Valitse uusi käyttäjänimi ja lähetä tiedot uudelleen.")
 
     
     if not form.validate_on_submit():
         return render_template("auth/registerform.html", form = form,
-                                error = "Nimen, käyttäjänimen ja salasanan oltava vähintään 1 merkkiä pitkiä.")
+                                error = "Nimen, käyttäjätunnuksen ja salasanan oltava vähintään 1 merkkiä pitkiä.")
 
 
     user = User(form.name.data, form.username.data, form.password.data)

@@ -1,17 +1,29 @@
 {% extends "layout.html" %}
+{% from "_formhelpers.html" import render_field %}
 
 {% block body %}
 
-<div class="container mt-2">
-  <div class="row">
+<div class="container">
+    
+  <div class="row mt-4">
+    <div class="col-10">
+      {% for forum in forums %} 
+      <p class="h2 mb-4"> {{ forum.name }} </p>
+      <p class="font-italic"> {{ forum.description }} </p>
+     
+    </div>
+  </div>
+
+  <div class="row mt-4">
     <div class="col-10">
       <div class="table-responsive">
         <table class="table table-striped"> 
+          <p class="h4 mb-4">Foorumilla kirjoitettua:</p>
           <thead class="thead">
             <tr>
               <th scope="col">Aihe</th>
               <th scope="col">Tekstisisältö</th>
-              <th scope="col">Kirjoittaja (account_id)</th>
+              <th scope="col">Kirjoittaja </th>
               <th scope="col">Muokattu viimeksi</th>
               <th scope="col"></th>
               <th scope="col"></th>
@@ -22,27 +34,57 @@
           <tr>
             <td>{{ topic.title }}</td>
             <td>{{ topic.bodytxt }}</td>
-            <td>{{ topic.account_id }}</td>
+            <td>{{ topic.account_name }}</td>
             <td>{{ topic.date_modified }}</td>
             {% if current_user.id == topic.account_id %}
             <td>
-              <form method="POST" action="{{ url_for('topic_delete') }}" style="display: inline">
-                <input type="hidden" value="{{topic.title}}" name="title">
-                <input type="submit" value="Poista">
+              <form method="POST" action="{{ url_for('topic_delete', forum_id=forum.id) }}" style="display: inline">
+                <input type="hidden" value="{{topic.id}}" name="topic_id">
+                <input class="form-control btn-danger" type="submit" value="Poista">
               </form>
             </td>
             <td>
-              <form method="GET" action="{{ url_for('topic_update', topic_id=topic.id) }}" style="display: inline">
-                <input type="submit" value="Muokkaa">
+              <form method="GET" action="{{ url_for('topic_update', topic_id=topic.id, forum_id=forum.id) }}" style="display: inline">
+                <input class="form-control btn-info" type="submit" value="Muokkaa">
               </form>
             </td>
             {% endif %}
+            {% endfor %}
           </tr>
-          {% endfor %}
+          
         </table>
       </div>
     </div>
   </div>
-</div>
+
+
+
+
   
+  <div class="row mt-4">
+      <div class="col-10">
+          <form method="POST" action="{{ url_for('topic_create', forum_id=forum.id ) }}">
+              
+              <p class="h4 mb-4">Lisää kirjoitus:</p>
+              <p class="text-danger">{{ error }}</p> 
+              <div class="form-group">
+                      {{ render_field(form.title, type="text", class="form-control", id="title", placeholder="Otsikko") }} 
+              </div>
+              <div class="form-group">
+                  <textarea class="form-control rounded-0" name="bodytxt" id="bodytxt" rows="10" placeholder="Tekstikenttä"></textarea>
+              </div>
+              <button class="btn btn-primary btn-lg btn-block" type="submit">Lähetä</button>
+          </form>
+      </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-10">
+      <br/>
+    </div>
+  </div> 
+
+</div>
+
+{% endfor %}
 {% endblock %}

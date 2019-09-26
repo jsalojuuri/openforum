@@ -1,34 +1,81 @@
 {% extends "layout.html" %}
-{% from "topics/_formhelpers.html" import render_field %}
+{% from "_formhelpers.html" import render_field %}
 
 {% block body %}
 <p class="text-danger">{{ error }}</p> 
 
-<div class="container mt-2">
-    <div class="row">
-        <div class="col-10">
+<div class="container">
+    <p class="h2 mb-4">Käyttäjän {{ current_user.name }} oma sivu</p>
+    <div class="row mt-4">
+        
+        <div class="col-4">
+            
             <form method="POST" action="{{ url_for('user_profile_update') }}">
-                
-                <p class="h2 mb-4">Käyttäjän tietojen päivitys</p>
+
+                <p class="h4 mb-4">Muokkaa käyttäjätietojasi:</p>
+
                 <div class="form-group">
-                    <div class="text-justify">Nimi: <input class="text-info" type="text" value="{{user.name}}" name="newname"></div>
+                    {{ form.name.label }}
+                    {{ form.name(class="form-control text-primary") }}
+                   
                 </div>
                 <div class="form-group">
-                    <input type="hidden" value="{{user.username}}" name="username">
-                    <div class="text-justify">Käyttäjätunnus: <input class="text-info" type="text" value="{{user.username}}" name="newusername"></div>        
+                    {{ form.username.label }}
+                    {{ form.username(class="form-control text-primary") }}
+       
                 </div>
                 <div class="form-group">
-                    <div class="text-justify">Salasana: <input class="text-info" type="text" value="{{user.password}}" name="newpassword"></div>        
+                    {{ form.password.label }}
+                    {{ form.password(class="form-control text-primary") }}
+     
                 </div>
-                <input class="btn-primary" type="submit" value="Päivitä">
+                <input class="form-control btn-primary" type="submit" value="Päivitä">
                 
             </form>
         </div>
     </div>
     <br>
-    <div class="row mb-2">
+    <div class="row mb-2 mt-4">
         <div class="col-10">
-                
+            <p class="h4 mb-4">Muokkaa kirjoituksiasi:</p>
+            {% for stat in stats %}
+            <p class="h6 mb-4">Kirjoituksia yhteensä: {{ stat.topic_count }}</p>
+            {% endfor %}
+            <div class="table-responsive">
+                <table class="table table-striped"> 
+                  <thead class="thead">
+                    <tr>
+                      <th scope="col">Aihe</th>
+                      <th scope="col">Tekstisisältö</th>
+                      <th scope="col">Muokattu viimeksi</th>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
+        
+                    </tr>
+                  </thead>
+                  {% for topic in topics %}
+                  <tr>
+                    <td>{{ topic.title }}</td>
+                    <td>{{ topic.bodytxt }}</td>
+                    <td>{{ topic.date_modified }}</td>
+                    {% if current_user.id == topic.account_id %}
+                    <td>
+                      <form method="POST" action="{{ url_for('topic_delete', forum_id=topic.forum_id) }}" style="display: inline">
+                        <input type="hidden" value="{{topic.id}}" name="topic_id">
+                        <input class="form-control btn-danger" type="submit" value="Poista">
+                      </form>
+                    </td>
+                    <td>
+                      <form method="GET" action="{{ url_for('topic_update', topic_id=topic.id, forum_id=topic.forum_id) }}" style="display: inline">
+                        <input class="form-control btn-info" type="submit" value="Muokkaa">
+                      </form>
+                    </td>
+                    {% endif %}
+                  </tr>
+                  {% endfor %}
+                </table>
+              </div>
+            </div>
         </div>
     </div>
 </div>

@@ -1,11 +1,11 @@
-# Open Forum - Tietokantasovellus yksinkertaiselle keskustelufoorumille.
+# Open Forum - Keskustelufoorumi aiheelle kuin aiheelle
 
-Open Forumilla käyttäjien on mahdollista julkaista kirjoituksia (topics) eri aihealueiden alle (forums) ja kommentoida kaikkia palvelun kirjoituksia. Omia kirjoituksia ja kommentteja voi myös muokata jälkikäteen. Vain pääkäyttäjät voivat luoda uusia aihealueita. Katso tarkemmat käyttötapaukset oheisesta dokumentaatiosta.
+Open Forumille rekisteröityneet ja kirjautuneet käyttäjät voivat julkaista kirjoituksia ja kommentoida omia ja toisten kirjoituksia erilaisilla foorumeilla. Omia kirjoituksia, kommentteja ja käyttäjätietoja voi muokata jälkikäteen. Vain pääkäyttäjät voivat luoda ja muokata foorumeita. Katso tarkemmat käyttötapaukset oheisesta dokumentaatiosta.
 
 ## Linkit:
 
 * [Projekti Herokussa](http://tsoha-open-forum.herokuapp.com)
-* [Keskeisimmät käyttötapaukset](./documentation/usecases.txt)
+* [Kuvaus keskeisimmistä käyttötapauksista](./documentation/usecases.txt)
 * [Tietokantakaavio](./documentation/database_schema.JPG)
 
 ## Testitunnukset Heroku-applikaatioon:

@@ -1,13 +1,9 @@
 from application import db
+from application.models import Base
 
-class User(db.Model):
+class User(Base):
 
     __tablename__ = "account"
-  
-    id = db.Column(db.Integer, primary_key=True)
-    date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
-    date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(),
-                              onupdate=db.func.current_timestamp())
 
     name = db.Column(db.String(144), nullable=False)
     # lastname = db.Column(db.String(144), nullable=False)
@@ -15,7 +11,7 @@ class User(db.Model):
     password = db.Column(db.String(144), nullable=False)
     userlevel = db.Column(db.String(10), default="user")
 
-    topics = db.relationship("Topic", backref='account', lazy=True)
+    topicaccounts = db.relationship("Topicaccount", backref='account', lazy=True)
 
     def __init__(self, name, username, password):
         self.name = name
@@ -34,3 +30,9 @@ class User(db.Model):
 
     def is_authenticated(self):
         return True
+
+    def is_admin(self):
+        if userlevel == 'admin':
+            return True
+        else:
+            return False

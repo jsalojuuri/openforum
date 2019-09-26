@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% from "topics/_formhelpers.html" import render_field %}
+{% from "_formhelpers.html" import render_field %}
 
 {% block body %}
 <p class="text-danger">{{ error }}</p> 
@@ -7,17 +7,18 @@
 <div class="container mt-2">
     <div class="row">
         <div class="col-10">
-            <form method="POST" action="{{ url_for('topic_update_post') }}">
-                
+            <form method="POST" action="{{ url_for('topic_update_post', topic_id=topic_id, forum_id=forum_id) }}">
+                <input type="hidden" value="{{topic.id}}" name="topicid">
                 <p class="h2 mb-4">Muokkaa kirjoitusta</p>
                 <div class="form-group">
-                    <div class="text-justify">Otsikko: <input class="text-info" type="text" value="{{topic.title}}" name="newtitle"></div>
+                    {{ form.title.label(class="text-justify") }}
+                    {{ form.title(class="form-control text-info") }}
                 </div>
                 <div class="form-group">
-                    <input type="hidden" value="{{topic.id}}" name="topicid">
-                    <div class="text-justify">Teksti: <input class="text-info" type="text" value="{{topic.bodytxt}}" name="newbodytxt"></div>        
+                    {{ form.bodytxt.label(class="text-justify") }}
+                    <textarea class="form-control text-info" rows="10" type="text" name="newbodytxt">{{topic.bodytxt}}</textarea>     
                 </div>
-                <input class="btn-primary" type="submit" value="Päivitä">
+                <input class="form-control btn-primary" type="submit" value="Päivitä">
                 
             </form>
         </div>
