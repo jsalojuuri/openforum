@@ -33,7 +33,7 @@ class Topic(Base):
 
     @staticmethod
     def find_user_topics(account_id):
-        stmt = text("SELECT Topic.id, Topic.title, Topic.bodytxt, Topic.date_modified, Topic.forum_id, Topicaccount.creator, Topicaccount.viewer, Account.name, Account.id FROM Topic"
+        stmt = text("SELECT Topic.id, Topic.title, Topic.bodytxt, Topic.date_modified, Topic.forum_id, Account.name, Account.id FROM Topic"
                     " LEFT JOIN Topicaccount ON Topicaccount.topic_id = Topic.id"
                     " LEFT JOIN Account ON Account.id = Topicaccount.account_id"
                     " WHERE (Account.id = :account_id)"
@@ -42,7 +42,7 @@ class Topic(Base):
   
         response = []
         for row in res:
-            response.append({"id":row[0], "title":row[1], "bodytxt":row[2], "date_modified":row[3], "forum_id":row[4], "topic_creator":row[5], "topic_viewer":row[6], "account_name":row[7], "account_id":row[8]})
+            response.append({"id":row[0], "title":row[1], "bodytxt":row[2], "date_modified":row[3], "forum_id":row[4], "account_name":row[5], "account_id":row[6]})
 
         return response
 
