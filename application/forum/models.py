@@ -48,7 +48,7 @@ class Topic(Base):
 
     @staticmethod
     def find_user_statistics(account_id):
-        stmt = text("SELECT COUNT(DISTINCT Topic.id), Topicaccount.creator, Topicaccount.account_id FROM Topic"
+        stmt = text("SELECT COUNT(DISTINCT Topic.id), COUNT(Topicaccount.creator), COUNT(Topicaccount.account_id) FROM Topic"
                     " LEFT JOIN Topicaccount ON Topicaccount.topic_id = topic.id"
                     " WHERE (Topicaccount.account_id = :account_id)").params(account_id=account_id)
         res = db.engine.execute(stmt)
