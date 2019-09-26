@@ -18,7 +18,8 @@ class Forum(Base):
     def forum_statistics():
         stmt = text("SELECT Forum.id, Forum.name, Forum.description, Forum.date_modified, COUNT(DISTINCT Forum.id), COUNT(DISTINCT Topic.id), COUNT(DISTINCT Topicaccount.account_id) FROM Forum"
                     " LEFT JOIN Topic ON Topic.forum_id = Forum.id"
-                    " LEFT JOIN Topicaccount ON Topicaccount.topic_id = Topic.id")
+                    " LEFT JOIN Topicaccount ON Topicaccount.topic_id = Topic.id"
+                    " GROUP BY Forum.id")
                       
         res = db.engine.execute(stmt)
 
