@@ -37,7 +37,7 @@ class Topic(Base):
                     " LEFT JOIN Topicaccount ON Topicaccount.topic_id = Topic.id"
                     " LEFT JOIN Account ON Account.id = Topicaccount.account_id"
                     " WHERE (Account.id = :account_id)"
-                    " GROUP BY Topic.id").params(account_id=account_id)
+                    " GROUP BY Account.id").params(account_id=account_id)
         res = db.engine.execute(stmt)
   
         response = []
