@@ -25,7 +25,7 @@ class Topic(Base):
                     " LEFT JOIN Account ON Account.id = Topicaccount.account_id"
                     " LEFT JOIN Comment ON Comment.topic_id = Topic.id"
                     " WHERE (Topic.forum_id = :forum_id)"
-                    " GROUP BY Topic.id, Account.name").params(forum_id=forum_id)
+                    " GROUP BY Topic.id, Account.id").params(forum_id=forum_id)
         res = db.engine.execute(stmt)
   
         response = []
