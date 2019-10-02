@@ -36,16 +36,16 @@ class Topic(Base):
 
     @staticmethod
     def find_topic_data(topic_id):
-        stmt = text("SELECT Topic.title, Topic.bodytxt, Topic.date_modified, Account.name FROM Topic"
+        stmt = text("SELECT Topic.title, Topic.bodytxt, Topic.date_modified, Account.name, Topic.id FROM Topic"
                     " LEFT JOIN Topicaccount ON Topic.id = Topicaccount.topic_id"
                     " LEFT JOIN Account ON Topicaccount.account_id = Account.id"
                     " WHERE (Topic.id = :topic_id)"
-                    " GROUP BY Topic.title, Account.name").params(topic_id=topic_id)
+                    " GROUP BY Topic.id, Account.name").params(topic_id=topic_id)
         res = db.engine.execute(stmt)
   
         response = []
         for row in res:
-            response.append({"title":row[0], "bodytxt":row[1], "date_modified":row[2], "account_name":row[3]})
+            response.append({"title":row[0], "bodytxt":row[1], "date_modified":row[2], "account_name":row[3], "id":row[4]})
 
         return response
 
