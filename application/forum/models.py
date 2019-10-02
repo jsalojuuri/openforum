@@ -36,17 +36,16 @@ class Topic(Base):
 
     @staticmethod
     def find_topic_data(topic_id):
-        stmt = text("SELECT Topic.id, Topic.title, Topic.bodytxt, Topic.date_modified, Topic.forum_id, Account.name, Account.id, Comment.id, Comment.bodytxt, Comment.date_modified, Comment.account_id FROM Topic"
-                    " LEFT JOIN Topicaccount ON Topicaccount.topic_id = Topic.id"
-                    " LEFT JOIN Account ON Account.id = Topicaccount.account_id"
-                    " LEFT JOIN Comment ON Comment.topic_id = Topic.id"
+        stmt = text("SELECT Topic.title, Topic.bodytxt, Topic.date_modified, Account.name FROM Topic"
+                    " LEFT JOIN Topicaccount ON Topic.id = Topicaccount.topic_id"
+                    " LEFT JOIN Account ON Topicaccount.account_id = Account.id"
                     " WHERE (Topic.id = :topic_id)"
-                    " GROUP BY Topic.id, Account.id").params(topic_id=topic_id)
+                    " GROUP BY Topic.title, Account.name").params(topic_id=topic_id)
         res = db.engine.execute(stmt)
   
         response = []
         for row in res:
-            response.append({"id":row[0], "title":row[1], "bodytxt":row[2], "date_modified":row[3], "forum_id":row[4], "account_name":row[5], "account_id":row[6], "comment_id":row[7], "comment_bodytxt":row[8], "comment_date_modified":row[9], "comment_account_id":row[10]})
+            response.append({"title":row[0], "bodytxt":row[1], "date_modified":row[2], "account_name":row[3]})
 
         return response
 
@@ -129,16 +128,15 @@ class Comment(Base):
 
     @staticmethod
     def find_comments_by_topic(topic_id):
-        stmt = text("SELECT Account.name, Account.id, Comment.id, Comment.bodytxt, Comment.date_modified, Comment.topic_id FROM Comment"
-                    " LEFT Join Topic ON Topic.id = Comment.topic_id"
-                    " LEFT JOIN Account ON Account.id = Comment.account_id"
+        stmt = text("SELECT Account.name, Comment.bodytxt, Comment.date_modified FROM Comment"
+                    " LEFT JOIN Account ON Comment.account_id = Account.id"
                     " WHERE (Comment.topic_id = :topic_id)"
                     ).params(topic_id=topic_id)
         res = db.engine.execute(stmt)
   
         response = []
         for row in res:
-            response.append({"account_name":row[0], "account_id":row[1], "comment_id":row[2], "comment_bodytxt":row[3], "comment_date_modified":row[4], "comment_topic_id":row[5]})
+            response.append({"account_name":row[0], "comment_bodytxt":row[1], "comment_date_modified":row[2]})
 
         return response     
 
