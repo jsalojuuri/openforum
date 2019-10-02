@@ -41,6 +41,8 @@
             {% for stat in stats %}
             <p class="h6 mb-4">Kirjoituksia yhteensä: {{ stat.topic_count }}</p>
             {% endfor %}
+            
+            
             <div class="table-responsive">
                 <table class="table table-striped"> 
                   <thead class="thead">
@@ -75,6 +77,27 @@
                   {% endfor %}
                 </table>
               </div>
+
+              <hr/>
+              <p class="h4 mb-4">Muokkaa kommenttejasi:</p>
+              {% for stat in stats %}
+              <p class="h6 mb-4">Kommentteja yhteensä: ##</p>
+              {% endfor %}
+              <div class="table-responsive">
+                  <table class="table table-striped"> 
+                    <thead class="thead">
+                      <tr>
+                        <th scope="col">Alkuperäinen aihe</th>
+                        <th scope="col">Kommentin sisältö</th>
+                        <th scope="col">Muokattu viimeksi</th>
+          
+                      </tr>
+                    </thead>
+
+                  </table>
+                </div>
+
+
             </div>
         </div>
     </div>

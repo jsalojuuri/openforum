@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% from "_formhelpers.html" import render_field %}
+
+{% block body %}
+
+       {% for topic in topics %}
+        <div class="card" style="width: 50rem;">
+        <div class="card-header text-muted"><i><b>{{ topic.account_name }}</b> kirjoittaa ({{ topic.date_modified }}):</i></div>
+            <div class="card-body">
+            <h5 class="card-title">{{ topic.title }}</h5>
+            
+            <p class="card-text">{{ topic.bodytxt }}</p>
+            
+            <hr/>
+            
+            {% for comment in comments %}
+            <div class="card-header mt-1 text-muted"><i><b>{{ comment.account_name }}</b> kommentoi ({{ comment.comment_date_modified }}): </i></div>
+            <div class="card-body">
+            <p class="card-text mt-1"><i>{{ comment.comment_bodytxt }}</i></p>
+            </div>
+            {% endfor %}
+
+            <hr/>
+
+            
+            <div class="row mt-4">
+                    <div class="col-10">
+                        <form method="POST" action="{{ url_for('comment_create', topic_id=topic.id ) }}">
+                            {{ form.bodytxt.label(class="h6 mb-4", text="Lisää kommentti") }}
+                            <p class="text-danger">{{ error }}</p> 
+                            <div class="form-group">
+                                <textarea class="form-control rounded-0" name="bodytxt" id="bodytxt" rows="5" placeholder="Tekstikenttä"></textarea>
+                            </div>
+                            <button class="btn btn-primary btn-lg btn-block" type="submit">Lisää kommentti</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+      
+
+
+
+{% endblock %}

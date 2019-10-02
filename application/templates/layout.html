@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html xml:lang="fi" lang="fi">
   <head>
     <meta charset="utf-8">
     <title>Open Forum</title>
@@ -22,7 +22,7 @@
 
           {% if current_user.is_authenticated %}
           <a class="nav-item nav-link" href="{{ url_for('forum_index') }}">Foorumit</a>
-          {% if current_user.is_admin %}
+          {% if current_user.role == 'admin' %}
           <a class="nav-item nav-link text-danger" href="{{ url_for('admin_panel') }}">Ylläpito</a>
           {% endif %}
           <a class="nav-item nav-link active text-success" href="#"><strong>Kirjautunut: {{ current_user.name }}</strong></a>

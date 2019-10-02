@@ -6,16 +6,15 @@ class User(Base):
     __tablename__ = "account"
 
     name = db.Column(db.String(144), nullable=False)
-    # lastname = db.Column(db.String(144), nullable=False)
     username = db.Column(db.String(144), nullable=False)
     password = db.Column(db.String(144), nullable=False)
-    userlevel = db.Column(db.String(10), default="user")
+    role = db.Column(db.String(10), default="user")
 
     topicaccounts = db.relationship("Topicaccount", backref='account', lazy=True)
+    comments = db.relationship("Comment", backref='account', lazy=True)
 
     def __init__(self, name, username, password):
         self.name = name
-        # self.lastname = lastname
         self.username = username
         self.password = password
   
@@ -31,8 +30,4 @@ class User(Base):
     def is_authenticated(self):
         return True
 
-    def is_admin(self):
-        if userlevel == 'admin':
-            return True
-        else:
-            return False
+    

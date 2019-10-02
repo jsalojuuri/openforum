@@ -1,20 +1,20 @@
-from application import app, db
+from application import app, db, login_required
 from flask import redirect, render_template, request, url_for
 from application.admin.models import Forum
 from application.admin.forms import ForumForm
 from application.forum.models import Topic
 from datetime import datetime
-from flask_login import current_user, login_required
+from flask_login import current_user
 
 # admin-paneelin etusivu
 @app.route("/admin", methods=["GET", "POST"])
-@login_required
+@login_required(role="admin")
 def admin_panel():
     return render_template("admin/panel.html", forums = Forum.forum_statistics_by_forum(), form = ForumForm(), stats = Forum.forum_statistics())
 
 # uuden foorumin lisääminen lomakkeella
 @app.route("/admin/forums/add", methods=["POST"])
-@login_required
+@login_required(role="admin")
 def forum_create():
     
     form = ForumForm(request.form)
@@ -28,7 +28,7 @@ def forum_create():
 
     if not form.validate_on_submit():
         return render_template('admin/panel.html', forums = Forum.forum_statistics_by_forum(), form=form, stats = Forum.forum_statistics(),
-                                error = "Nimen pituuden on oltava vähintään 1 merkki")
+                                error = "Foorumin nimen on oltava 1-144 merkkiä pitkä")
 
     forum = Forum(form.name.data)
     forum.description = form.description.data
@@ -40,7 +40,7 @@ def forum_create():
 
 # foorumeiden muokkaus lomakkeella
 @app.route("/admin/forums/update", methods=["POST"])
-@login_required
+@login_required(role="admin")
 def forum_update_form():
 
     form = ForumForm(request.form)
@@ -53,7 +53,7 @@ def forum_update_form():
     f = Forum.query.filter_by(name=name).first()
     if not form.validate_on_submit():
             return render_template("admin/update_forum.html", forum=forum, form=ForumForm(name=name, description=description),
-                                        error = "Foorumin nimen on oltava vähintään 1 merkkiä pitkä")
+                                        error = "Foorumin nimen on oltava 1-144 merkkiä pitkä")
 
     
     forum.name = name    
@@ -64,7 +64,7 @@ def forum_update_form():
 
 # foorumin muokkaussivu
 @app.route("/admin/forums/<forum_id>/")
-@login_required
+@login_required(role='admin')
 def forum_update(forum_id):
 
     forum = Forum.query.filter_by(id=forum_id).first()
@@ -79,7 +79,7 @@ def forum_update(forum_id):
 
 # foorumin poistaminen napilla
 @app.route("/admin/forums/delete", methods=["POST"])
-@login_required
+@login_required(role='admin')
 def forum_delete():
     name = request.form.get("name")
     forum = Forum.query.filter_by(name=name).first()

@@ -1,5 +1,7 @@
 # Tuodaan Flask käyttöön
 from flask import Flask
+from functools import wraps
+from flask_login import current_user
 
 app = Flask(__name__)
 
@@ -24,6 +26,45 @@ else:
 # Luodaan db-olio, jota käytetään tietokannan käsittelyyn
 db = SQLAlchemy(app)
 
+# Kirjautuminen, osa 1
+from os import urandom
+app.config["SECRET_KEY"] = urandom(32)
+
+from flask_login import LoginManager
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+login_manager.login_view = "auth_login"
+login_manager.login_message = "Please login to use this functionality."
+
+
+# roolit login_required annotaatiossa
+def login_required(role="any"):
+    def wrapper(fn):
+        @wraps(fn)
+        def decorated_view(*args, **kwargs):
+            if not current_user:
+                return login_manager.unauthorized()
+
+            if not current_user.is_authenticated:
+                return login_manager.unauthorized()
+            
+            unauthorized = False
+
+            if role != "any":
+                unauthorized = True
+
+            if current_user.role == 'admin':
+                unauthorized = False
+
+            if unauthorized:
+                return login_manager.unauthorized()
+            
+            return fn(*args, **kwargs)
+        return decorated_view
+    return wrapper
+
+
 # Oman sovelluksen toiminnallisuudet
 from application import views
 
@@ -36,17 +77,8 @@ from application.auth import views
 from application.admin import models
 from application.admin import views
 
-# Kirjautuminen
+# kirjautuminen, osa 2
 from application.auth.models import User
-from os import urandom
-app.config["SECRET_KEY"] = urandom(32)
-
-from flask_login import LoginManager
-login_manager = LoginManager()
-login_manager.init_app(app)
-
-login_manager.login_view = "auth_login"
-login_manager.login_message = "Please login to use this functionality."
 
 @login_manager.user_loader
 def load_user(user_id):

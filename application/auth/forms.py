@@ -8,9 +8,9 @@ class LoginForm(FlaskForm):
 
 
 class RegisterForm(FlaskForm):
-    name = StringField("Nimi", [validators.Length(min=1)])
-    username = StringField("Käyttäjätunnus", [validators.Length(min=1)])
-    password = PasswordField("Salasana", [validators.Length(min=1)])
+    name = StringField("Nimi", [validators.Length(min=1, max=144)])
+    username = StringField("Käyttäjätunnus", [validators.Length(min=1, max=144)])
+    password = PasswordField("Salasana", [validators.Length(min=1, max=144)])
 
     class Meta:
         csrf = False

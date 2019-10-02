@@ -17,13 +17,13 @@ Open Forumille rekisteröityneet ja kirjautuneet käyttäjät voivat julkaista k
 ## Käyttöohje
 
 * Helpoiten pääset liikkeelle rekisteröimällä uuden käyttäjän sovellukseen rekisteröintilomakkeen avulla ja kirjaumalla palveluun kirjautumislomakkeella. Linkit näihin löydät sovelluksen päänavigaatiosta. Vaihtoehtoisesti luo uusi käyttäjä suoraan sovelluksen tietokantaan tauluun Account. Jos käytät kehitysympäristönä VSCodea, suosittelen asentamaan SQLite Explorer lisäosan, jolla tietokannan muokkaus sujuu näppärästi. Admin-tason käytäjän luominen onnistuu vain suoralla tietokantainjektiolla.
-* Ylläpitäjä-käyttäjän on luotava palveluun aluksi ainakin yksi foorumi. Siirry foorumeiden hallintaan päänavigaatiosta valitsemalla 'Ylläpito'. Kun foorumi on luotu, pääsevät kaikki käyttäjät valitsemaan sen palvelun sisäänkirjautumisen jälkeiseltä sivulta
+* Ylläpitäjän on luotava palveluun aluksi ainakin yksi foorumi. Siirry foorumeiden hallintaan päänavigaatiosta valitsemalla 'Ylläpito'. Kun foorumi on luotu, pääsevät kaikki käyttäjät valitsemaan sen palvelun sisäänkirjautumisen jälkeiseltä sivulta
 * Valitse foorumi ja lisää kirjoitus tai kommentoi muita kirjoituksia. Voit muokata ja poistaa omia kirjoituksiasi ja kommenttejasi. 
 * Kaikki käyttäjät voivat siirtyä omille sivuille päänavigaation linkillä 'Omat sivut'. Omilla sivuilla voi muokata omia käyttätietoja sekä poistaa tai muokata omia kirjoituksia ja kommentteja.
 * Kirjaudu palvelusta ulos päänavigaation 'Kirjaudu ulos' linkillä.  
 
 
-## Testisovellus Herokussa:
+## Testisovellus Herokussa
 
 Voit testata sovellusta [Herokussa](http://tsoha-open-forum.herokuapp.com) joko käyttämällä oheisia testitunnuksia tai luomalla oman käyttäjän. Voit vapaasti lisätä, poistaa ja muokata sovelluksen sisältöä.
 

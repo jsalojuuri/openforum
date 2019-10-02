@@ -47,7 +47,7 @@ def auth_register():
     
     if not form.validate_on_submit():
         return render_template("auth/registerform.html", form = form,
-                                error = "Nimen, käyttäjätunnuksen ja salasanan oltava vähintään 1 merkkiä pitkiä.")
+                                error = "Nimen, käyttäjätunnuksen ja salasanan oltava 1-144 merkkiä pitkiä.")
 
 
     user = User(form.name.data, form.username.data, form.password.data)
