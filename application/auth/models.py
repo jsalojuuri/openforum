@@ -9,7 +9,6 @@ class User(Base):
     username = db.Column(db.String(144), nullable=False)
     password = db.Column(db.String(144), nullable=False)
     role = db.Column(db.String(10), default="user")
-
     topicaccounts = db.relationship("Topicaccount", backref='account', lazy=True)
     comments = db.relationship("Comment", backref='account', lazy=True)
 

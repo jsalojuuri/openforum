@@ -10,29 +10,28 @@
       <p class="h4 mb-4 mt-4">Foorumin tilastoja:</p>
       {% for stat in stats %}
       <p class="h6 mb-4">Foorumeita: {{ stat.forum_count }}</p>
-      <p class="h6 mb-4">Kirjoittajia: {{ stat.account_count }}</p>
+      <p class="h6 mb-4">Käyttäjiä: {{ stat.account_count }}</p>
       <p class="h6 mb-4">Kirjoituksia: {{ stat.topic_count }}</p>
+      <p class="h6 mb-4">Kommentteja: {{ stat.comment_count }}</p>
       {% endfor %}
     </div>
   </div>
 
-
-
   <div class="row mt-4">
     <div class="col-10">
       <p class="h4 mb-4">Foorumit:</p>
-      <div class="table-responsive">        
-        <table class="table table-striped"> 
+      <div class="table-responsive">
+        <table class="table table-striped">
           <thead class="thead">
             <tr>
               <th scope="col">Foorumi</th>
               <th scope="col">Kuvaus</th>
-              <th scope="col">Kirjoittajia</th>
+              <th scope="col">Käyttäjiä</th>
               <th scope="col">Kirjoituksia</th>
+              <th scope="col">Kommentteja</th>
               <th scope="col">Muokattu viimeksi</th>
               <th scope="col"></th>
               <th scope="col"></th>
-
             </tr>
           </thead>
           {% for forum in forums %}
@@ -41,6 +40,7 @@
             <td>{{ forum.description }}</td>
             <td>{{ forum.account_count }}</td>
             <td>{{ forum.topic_count }}</td>
+            <td>{{ forum.comment_count }}</td>
             <td>{{ forum.date_modified }}</td>
             <td>
               <form method="POST" action="{{ url_for('forum_delete') }}" style="display: inline">
@@ -60,21 +60,17 @@
     </div>
   </div>
 
-  
-
-
-
   <div class="row mt-4">
     <div class="col-10">
-      
       <form method="POST" action="{{ url_for('forum_create') }}">
         <p class="h4 mb-4">Lisää uusi foorumi:</p>
-        <p class="text-danger">{{ error }}</p> 
+        <p class="text-danger">{{ error }}</p>
         <div class="form-group">
-                {{ render_field(form.name, type="text", class="form-control", id="name", placeholder="Nimi") }} 
+          {{ render_field(form.name, type="text", class="form-control", id="name", placeholder="Nimi") }}
         </div>
         <div class="form-group">
-            <textarea class="form-control rounded-0" name="description" id="description" rows="4" placeholder="Foorumin kuvaus"></textarea>
+          <textarea class="form-control rounded-0" name="description" id="description" rows="4"
+            placeholder="Foorumin kuvaus"></textarea>
         </div>
         <button class="btn btn-primary btn-lg btn-block" type="submit">Lisää</button>
       </form>
@@ -83,8 +79,8 @@
 
   <div class="row">
     <div class="col-10">
-      <br/>
-      <br/>
+      <br />
+      <br />
     </div>
   </div>
 

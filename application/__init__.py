@@ -37,7 +37,6 @@ login_manager.init_app(app)
 login_manager.login_view = "auth_login"
 login_manager.login_message = "Please login to use this functionality."
 
-
 # roolit login_required annotaatiossa
 def login_required(role="any"):
     def wrapper(fn):
@@ -63,7 +62,6 @@ def login_required(role="any"):
             return fn(*args, **kwargs)
         return decorated_view
     return wrapper
-
 
 # Oman sovelluksen toiminnallisuudet
 from application import views

@@ -15,14 +15,3 @@ def index():
 @login_required
 def forum_index():
     return render_template("list.html", forums = Forum.forum_statistics_by_forum())
-
-# aiheen muokkaussivu
-@app.route("/forum/<forum_id>/")
-@login_required
-def forum_topics(forum_id):
-
-    if request.method == "GET":
-        try:
-            return render_template("topics/list.html", topics = Topic.query.filter_by(forum_id=forum_id).first())
-        except Exception:
-            return(str("Virhe"))

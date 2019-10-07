@@ -10,7 +10,7 @@ class TopicForm(FlaskForm):
 
 
 class CommentForm(FlaskForm):
-    bodytxt = StringField("Teksti", [validators.Length(min=1, max=1444)])
+    bodytxt = StringField("Kommentin teksti", [validators.Length(min=1, max=1444)])
  
     class Meta:
         csrf = False

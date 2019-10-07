@@ -2,35 +2,34 @@
 
 {% block body %}
 <div class="container">
-  
   <div class="row mb-2">
     <div class="col">
       <p class="h2 mb-4">Kaikenlaisten aiheiden kohtaamispaikka</p>
-      <p class="text-justify"><a class="text-primary" href="{{ url_for('auth_register') }}"><strong>Rekisteröidy</strong></a> Open Forumille ja aloita keskustelu aiheesta kuin aiheesta. </p>
+      <p class="text-justify"><a class="text-primary"
+          href="{{ url_for('auth_register') }}"><strong>Rekisteröidy</strong></a> Open Forumille ja aloita keskustelu
+        aiheesta kuin aiheesta. </p>
     </div>
   </div>
-
   <div class="row mb-2">
     <div class="col-5">
       <img src="/static/men-2425121_1280.jpg" alt="kuva_ihmisista" class="img-fluid">
     </div>
     <div class="col-5">
       <p class="h4">Osallistu keskusteluun</p>
-      <p class="text-justify">Kirjoita mikä mieltäsi askarruttaa kirjoittamalla siitä Open Forumilla. Tyyli on vapaa, voit avata uuden aiheen tai osallistua jo alkaneisiin keskusteluihin.</p>
+      <p class="text-justify">Kirjoita mikä mieltäsi askarruttaa kirjoittamalla siitä Open Forumilla. Tyyli on vapaa,
+        voit avata uuden aiheen tai osallistua jo alkaneisiin keskusteluihin. <a class="text-primary"
+        href="{{ url_for('auth_register') }}"><strong>Aloita rekisteröitymällä</strong></a> palveluun.</p>
     </div>
   </div>
-
   <div class="row mb-2">
-      <div class="col-5">
-        <img src="/static/light-bulb-1246043_1280.jpg" alt="kuva_hehkulampusta" class="img-fluid">
-      </div>
-      <div class="col-5">
-        <p class="h4">Jalosta ideoitasi</p>
-        <p class="text-justify">Onko sinulla kehitysidea, jonka haluaisit jakaa ja keskustella muiden kanssa? Open Forumilla voit jalostaa ideoistasi vieläkin parempia.</p>
-      </div>
+    <div class="col-5">
+      <img src="/static/light-bulb-1246043_1280.jpg" alt="kuva_hehkulampusta" class="img-fluid">
+    </div>
+    <div class="col-5">
+      <p class="h4">Jalosta ideoitasi</p>
+      <p class="text-justify">Onko sinulla kehitysidea, jonka haluaisit jakaa ja keskustella muiden kanssa? Open
+        Forumilla voit jalostaa ideoistasi vieläkin parempia.</p>
+    </div>
   </div>
-
-
-
 </div>
 {% endblock %}

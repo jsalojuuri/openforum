@@ -3,7 +3,6 @@ from flask import redirect, render_template, request, url_for
 from application.admin.models import Forum
 from application.admin.forms import ForumForm
 from application.forum.models import Topic
-from datetime import datetime
 from flask_login import current_user
 
 # admin-paneelin etusivu
@@ -18,21 +17,20 @@ def admin_panel():
 def forum_create():
     
     form = ForumForm(request.form)
-    
-
     forum_name = Forum.query.filter_by(name=form.name.data).first()
 
+    # tarkista onko saman niminen foorumi jo olemassa
     if forum_name:
         return render_template("admin/panel.html", forums = Forum.forum_statistics_by_forum(), form=form, stats = Forum.forum_statistics(),
                                error = "Saman niminen foorumi on jo luotu. Muuta foorumin nimeä ja lähetä lomake uudelleen")
 
+    # lomakkeen validointi
     if not form.validate_on_submit():
         return render_template('admin/panel.html', forums = Forum.forum_statistics_by_forum(), form=form, stats = Forum.forum_statistics(),
                                 error = "Foorumin nimen on oltava 1-144 merkkiä pitkä")
 
     forum = Forum(form.name.data)
     forum.description = form.description.data
-
     db.session().add(forum)
     db.session().commit()
 
@@ -48,14 +46,12 @@ def forum_update_form():
     description = request.form.get("newdescription")
     forum_id = request.form.get("forumid")
     forum = Forum.query.filter_by(id=forum_id).first()
- 
-    # validointi
-    f = Forum.query.filter_by(name=name).first()
+    
+    # lomakkeen validointi
     if not form.validate_on_submit():
             return render_template("admin/update_forum.html", forum=forum, form=ForumForm(name=name, description=description),
                                         error = "Foorumin nimen on oltava 1-144 merkkiä pitkä")
 
-    
     forum.name = name    
     forum.description = description
     db.session.commit()

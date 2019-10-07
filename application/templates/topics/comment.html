@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% from "_formhelpers.html" import render_field %}
+
+{% block body %}
+<p class="text-danger">{{ error }}</p>
+{% for comment in comments %}
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-10">
+            <form method="POST"
+                action="{{ url_for('comment_post', forum_id=forum_id, topic_id=comment.topic_id, comment_id=comment.id) }}">
+                <p class="h2 mb-4">Muokkaa kommenttia</p>
+                <div class="form-group">
+                    {{ form.bodytxt.label(class="text-justify") }}
+                    {{ form.bodytxt(class="form-control text-info") }}
+                </div>
+                <input class="form-control btn-primary" type="submit" value="Päivitä">
+            </form>
+        </div>
+    </div>
+    <br>
+    <div class="row mb-2">
+        <div class="col-10">
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+{% endblock %}
