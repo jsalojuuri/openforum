@@ -70,25 +70,74 @@ Sovellus on kehitetty Helsingin Yliopiston kurssin Tietokantasovellus projektina
 
 ## Keskeisimmät käyttötapaukset ja niihin liittyvät SQL-kyselyt
 
-Sovelluksen keskeisimmät käyttötapaukset ja jatkokehitysideat on listattu lyhyesti [täällä](./documentation/usecases.txt). Ohessa vielä SQL-kyselyt käyttötapauksittain:
+Sovelluksen keskeisimmät käyttötapaukset ja jatkokehitysideat on listattu lyhyesti [täällä](./documentation/usecases.txt). Ohessa vielä SQL-kyselyt näkymäkohtaisesti:
 
-* Rekisteröityminen ja kirjautuminen palveluun
 
-* Listaus ja tilastointia palvelun foorumeista
+### Rekisteröityminen ja kirjautuminen palveluun
 
-* Listaus ja tilastointia palvelun kirjoituksista foorumeittain
+* Rekisteröityminen
 
-* Kirjoitusten lisääminen, muokkaaminen ja poistaminen
 
-* Käyttäjäprofiilin (käyttäjätietojen) muokkaus, omien kirjoitusten muokkaaminen ja poistaminen sekä käyttäjäkohtaisia tilastoja käyttäjän omilla sivuilla
 
-* Foorumien lisääminen, muokkaus ja poistaminen sekä palvelun käytön tilastoja ylläpitäjän hallintapaneelissa
+* Kirjautuminen
 
-* Mahdollisuus kommentoida kirjoitusta
 
-* Kommentin muokkaaminen ja poistaminen omalla sivulla
 
-* Kirjoituskohtaisen tilastoinnin kehitys: kirjoituksen lukukerrat ja kuinka moni käyttäjä on nähnyt kirjoituksen
+### Ylläpitäjän paneeli
+
+* Tilastoja Open Forumista
+```
+SELECT 
+    COUNT(DISTINCT Forum.id), 
+    COUNT(DISTINCT Topic.id), 
+    COUNT(DISTINCT Topicaccount.account_id), 
+    COUNT(DISTINCT Comment.id) FROM Forum
+    LEFT JOIN Topic ON Topic.forum_id = Forum.id
+    LEFT JOIN Topicaccount ON Topicaccount.topic_id = Topic.id
+    LEFT JOIN Comment ON Topic.id = Comment.topic_id
+    ;
+```
+* Listaus ja tilastoja luoduista foorumeista
+```
+SELECT 
+    Forum.id, 
+    Forum.name, 
+    Forum.description, 
+    Forum.date_modified, 
+    COUNT(DISTINCT Topic.id), 
+    COUNT(DISTINCT Topicaccount.account_id), 
+    COUNT(DISTINCT Comment.id) FROM Forum
+    LEFT JOIN Topic ON Forum.id = Topic.forum_id
+    LEFT JOIN Topicaccount ON Topic.id = Topicaccount.topic_id
+    LEFT JOIN Comment ON Topic.id = Comment.topic_id
+    GROUP BY Forum.id
+    ;
+```
+* Yksittäisen foorumin tietojen haku lomakkeen validointia varten (? = Haettavan foorumin nimi)
+```
+SELECT 
+    * FROM Forum
+    WHERE Forum.name = ?
+    ;
+```
+* Uuden foorumin luominen
+```
+
+```
+
+### Listaus ja tilastointia palvelun kirjoituksista foorumeittain
+
+### Kirjoitusten lisääminen, muokkaaminen ja poistaminen
+
+### Käyttäjäprofiilin (käyttäjätietojen) muokkaus, omien kirjoitusten muokkaaminen ja poistaminen sekä käyttäjäkohtaisia tilastoja käyttäjän omilla sivuilla
+
+### Foorumien lisääminen, muokkaus ja poistaminen sekä palvelun käytön tilastoja ylläpitäjän hallintapaneelissa
+
+### Mahdollisuus kommentoida kirjoitusta
+
+### Kommentin muokkaaminen ja poistaminen omalla sivulla
+
+### Kirjoituskohtaisen tilastoinnin kehitys: kirjoituksen lukukerrat ja kuinka moni käyttäjä on nähnyt kirjoituksen
 
 
 ## Tietokantarakenteen kuvaus
