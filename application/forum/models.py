@@ -21,7 +21,7 @@ class Topic(Base):
                     " LEFT JOIN Account ON Account.id = Topicaccount.account_id"
                     " LEFT JOIN Comment ON Topic.id = Comment.topic_id"
                     " WHERE (Topic.forum_id = :forum_id AND Topicaccount.creator = :creator_true)"
-                    " GROUP BY Topic.id, Account.id").params(forum_id=forum_id, creator_true=1)
+                    " GROUP BY Topic.id, Account.id").params(forum_id=forum_id, creator_true=True)
         res = db.engine.execute(stmt)
   
         response = []
@@ -36,7 +36,7 @@ class Topic(Base):
                     " LEFT JOIN Topicaccount ON Topic.id = Topicaccount.topic_id"
                     " LEFT JOIN Account ON Topicaccount.account_id = Account.id"
                     " WHERE (Topic.id = :topic_id AND Topicaccount.creator = :creator_true)"
-                    " GROUP BY Topic.id, Account.name").params(topic_id=topic_id, creator_true=1)
+                    " GROUP BY Topic.id, Account.name").params(topic_id=topic_id, creator_true=True)
         res = db.engine.execute(stmt)
   
         response = []
@@ -51,7 +51,7 @@ class Topic(Base):
                     " LEFT JOIN Topicaccount ON Topic.id = Topicaccount.topic_id"
                     " WHERE (Topicaccount.account_id = :account_id AND Topicaccount.creator = :creator_true)"
                     " GROUP BY Topic.id"
-                    " ORDER BY Topic.id").params(account_id=account_id, creator_true=1)
+                    " ORDER BY Topic.id").params(account_id=account_id, creator_true=True)
         res = db.engine.execute(stmt)
   
         response = []
@@ -64,7 +64,7 @@ class Topic(Base):
     def find_user_topic_count(account_id):
         stmt = text("SELECT COUNT(DISTINCT Topic.id) FROM Topic"
                     " LEFT JOIN Topicaccount ON Topic.id = Topicaccount.topic_id"
-                    " WHERE Topicaccount.account_id = :account_id AND Topicaccount.creator = :creator_true").params(account_id=account_id, creator_true=1)
+                    " WHERE Topicaccount.account_id = :account_id AND Topicaccount.creator = :creator_true").params(account_id=account_id, creator_true=True)
         res = db.engine.execute(stmt)
 
         response = []
