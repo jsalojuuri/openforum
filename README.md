@@ -97,7 +97,8 @@ Sovelluksen tietokanta on normalisoitu kolmanteen normaalimuotoon ja sen lopulli
 
 * Account-taulu
 
-```CREATE TABLE account (
+```
+CREATE TABLE account (
         id INTEGER NOT NULL, 
         date_created DATETIME, 
         date_modified DATETIME, 
@@ -111,17 +112,20 @@ Sovelluksen tietokanta on normalisoitu kolmanteen normaalimuotoon ja sen lopulli
 
 * Forum-taulu
 
-```CREATE TABLE forum (
+```
+CREATE TABLE forum (
         id INTEGER NOT NULL, 
         date_created DATETIME, 
         date_modified DATETIME, 
         name VARCHAR(144) NOT NULL, 
         description VARCHAR(1000) NOT NULL, 
         PRIMARY KEY (id)
-)```
+)
+```
 
 * Topic-taulu
 
+```
 CREATE TABLE topic (
         id INTEGER NOT NULL, 
         date_created DATETIME, 
@@ -132,9 +136,11 @@ CREATE TABLE topic (
         PRIMARY KEY (id), 
         FOREIGN KEY(forum_id) REFERENCES forum (id)
 )
+```
 
 * Comment-taulu
 
+```
 CREATE TABLE comment (
         id INTEGER NOT NULL, 
         date_created DATETIME, 
@@ -146,9 +152,11 @@ CREATE TABLE comment (
         FOREIGN KEY(account_id) REFERENCES account (id), 
         FOREIGN KEY(topic_id) REFERENCES topic (id)
 )
+```
 
 * Topicaccount-taulu
 
+```
 CREATE TABLE topicaccount (
         id INTEGER NOT NULL, 
         date_created DATETIME, 
@@ -162,6 +170,7 @@ CREATE TABLE topicaccount (
         FOREIGN KEY(account_id) REFERENCES account (id), 
         FOREIGN KEY(topic_id) REFERENCES topic (id)
 )
+```
 
 
 ## Linkit
