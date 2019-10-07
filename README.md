@@ -85,6 +85,13 @@ Sovelluksen keskeisimmät käyttötapaukset ja jatkokehitysideat on listattu lyh
 
 ### Ylläpitäjän paneeli
 
+* Haetaan käyttäjän tiedot autorisointia varten (? = aktiivisen käyttäjän account.id)
+```
+SELECT 
+    * FROM Account
+    WHERE Account.id = ?
+    ;
+```
 * Tilastoja Open Forumista
 ```
 SELECT 
@@ -113,16 +120,28 @@ SELECT
     GROUP BY Forum.id
     ;
 ```
-* Yksittäisen foorumin tietojen haku lomakkeen validointia varten (? = Haettavan foorumin nimi)
+* Yksittäisen foorumin tietojen haku lomakkeen validointia tai tietojen muokkausta varten (? = Haettavan foorumin nimi)
 ```
 SELECT 
     * FROM Forum
     WHERE Forum.name = ?
     ;
 ```
-* Uuden foorumin luominen
+* Uuden foorumin luominen (? = lomakkeella annetut foorumin nimi ja kuvaus)
 ```
-
+INSERT INTO Forum (date_created, date_modified, name, description)
+    VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?)
+```
+* Luodun foorumin tietojen päivittäminen (? = lomakkeella annetut foorumin uusi nimi ja kuvaus sekä päivitettävän foorumin id)
+```
+UPDATE Forum
+    SET date_modified=CURRENT_TIMESTAMP, name=?, description=?
+    WHERE Forum.id = ?
+```
+* Luodun foorumin poistaminen (? = poistettavan foorumin id)
+```
+DELETE FROM Forum
+WHERE Forum.id = ?
 ```
 
 ### Listaus ja tilastointia palvelun kirjoituksista foorumeittain
