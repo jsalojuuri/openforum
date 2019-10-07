@@ -103,7 +103,7 @@ class Topicaccount(db.Model):
     def find_topic_viewer_count(topic_id):
         stmt = text("SELECT COUNT(DISTINCT Topicaccount.account_id), COUNT(Topicaccount.account_id) FROM Topicaccount"
                     " WHERE (Topicaccount.topic_id = :topic_id AND Topicaccount.viewer = :topic_viewer_true)"
-                    ).params(topic_id=topic_id, topic_viewer_true=1)
+                    ).params(topic_id=topic_id, topic_viewer_true=True)
         res = db.engine.execute(stmt)
   
         response = []
