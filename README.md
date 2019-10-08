@@ -62,11 +62,93 @@ Ylläpitäjänä voit edellisten lisäksi luoda, poistaa ja muokata foorumeita.
 
 ## Sovelluksen rajoitteet ja jatkokehitys
 
-Sovellus on kehitetty Helsingin Yliopiston kurssin Tietokantasovellus projektina syys-lokakuussa 2019. Kurssin aikana toteutettiin suurin osa kurssin alussa suunnitelluista käyttötapauksista ja sovellus on jo sellaisenaan toimiva pienen ryhmän keskustelufoorumiksi. Sovelluksesta puuttuu toistaiseksi työkalut foorumien ja kirjoitusten hakemiseen, tietokantahakujen listauksia ole sivutettu sovelluksessa mitenkään eikä salasanoja ole salattu tietokannassa. Nämä on lisätty [käyttötapauslistauksen jatkokehitysideoihin](./documentation/usecases.txt), jonka lisäksi käyn tässä vielä lyhyesti läpi ajatuksia näiden toteuttamiseksi:
+Sovellus on kehitetty Helsingin Yliopiston kurssin Tietokantasovellus projektina syys-lokakuussa 2019. Kurssin aikana toteutettiin suurin osa kurssin alussa suunnitelluista käyttötapauksista ja sovellus on jo sellaisenaan toimiva pienen ryhmän keskustelufoorumiksi. Sovelluksesta puuttuu toistaiseksi työkalut foorumien ja kirjoitusten hakemiseen, tietokantahakujen listauksia ei ole sivutettu sovelluksessa mitenkään eikä salasanoja ole salattu tietokannassa. Nämä on lisätty [käyttötapauslistauksen jatkokehitysideoihin](./documentation/usecases.txt), jonka lisäksi käyn tässä vielä lyhyesti läpi ajatuksia näiden toteuttamiseksi:
 
 * Hakutoiminnallisuus: tämän hetkisen tiedon perusteella toteutus kannattaisi tehdä Pythonin [Whoosh-kirjaston](https://whoosh.readthedocs.io/en/latest/intro.html) avulla. Whooshiin on olemassa myös [SQLAlchemy integraatio](https://flask-whooshee.readthedocs.io/en/latest/), joka oletettavasti nopeuttaisi toteutusta.
 * Listausten sivutus: listauksia, kuten Open Forumiin luotuja foorumeita, foorumin kirjoituksia tai kirjoituksen kommentteja voi niputtaa esim. kymmenen esiintymän ryhmiin per sivu, mikä parantaisi sovelluksen käytettävyyttä sisällön määrän kasvaessa. Sivutuksen toteutukseen Flask-ympäristössä voi tutustua esim. [Miguel Grinbergin blogin avulla](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-ix-pagination).
-* Salasanojen salaaminen: yksi varteenotettava salasanojen suojaamiseen käytettävä kirjasto Pythonilla on [Passlib](https://passlib.readthedocs.io/en/stable/), josta löytyy yli 30 erilaista salasanojen salausalgoritmia. 
+* Salasanojen salaaminen: Salaamisella parannetaan sovelluksen tietoturvallisuutta. Salasanojen saluksella estetään käyttäjien salasanojen vuotaminen niin ylläpitäjille kuin pahantahtoisille henkilöille mahdollisen tietomurron yhteydessä. Salauksella tietokantaan tallennetut salasanat ovat normaalisti käytettävissä sovelluksen tarpeisiin, mutta näyttävät tunnistamattomilta merkkijonoilta salausalgoritmin käsittelyn jälkeen. Yksi varteenotettava salasanojen suojaamiseen käytettävä kirjasto Pythonilla on [Passlib](https://passlib.readthedocs.io/en/stable/), josta löytyy yli 30 erilaista salasanojen salausalgoritmia. 
+
+
+## Tietokantarakenteen kuvaus
+
+Sovelluksen tietokanta on normalisoitu ja sen lopullinen tietokantarakenne vastaa oheista [tietokantakaaviota](./documentation/database_schema.JPG). Tietokannan CREATE TABLE -lauseet:
+
+* Account-taulu
+
+```
+CREATE TABLE account (
+        id INTEGER NOT NULL, 
+        date_created DATETIME, 
+        date_modified DATETIME, 
+        name VARCHAR(144) NOT NULL, 
+        username VARCHAR(144) NOT NULL, 
+        password VARCHAR(144) NOT NULL, 
+        role VARCHAR(10), 
+        PRIMARY KEY (id)
+)
+```
+
+* Forum-taulu
+
+```
+CREATE TABLE forum (
+        id INTEGER NOT NULL, 
+        date_created DATETIME, 
+        date_modified DATETIME, 
+        name VARCHAR(144) NOT NULL, 
+        description VARCHAR(1000) NOT NULL, 
+        PRIMARY KEY (id)
+)
+```
+
+* Topic-taulu
+
+```
+CREATE TABLE topic (
+        id INTEGER NOT NULL, 
+        date_created DATETIME, 
+        date_modified DATETIME, 
+        title VARCHAR(144) NOT NULL, 
+        bodytxt VARCHAR(1444) NOT NULL, 
+        forum_id INTEGER NOT NULL, 
+        PRIMARY KEY (id), 
+        FOREIGN KEY(forum_id) REFERENCES forum (id)
+)
+```
+
+* Comment-taulu
+
+```
+CREATE TABLE comment (
+        id INTEGER NOT NULL, 
+        date_created DATETIME, 
+        date_modified DATETIME, 
+        bodytxt VARCHAR(1444) NOT NULL, 
+        account_id INTEGER NOT NULL, 
+        topic_id INTEGER NOT NULL, 
+        PRIMARY KEY (id), 
+        FOREIGN KEY(account_id) REFERENCES account (id), 
+        FOREIGN KEY(topic_id) REFERENCES topic (id)
+)
+```
+
+* Topicaccount-taulu
+
+```
+CREATE TABLE topicaccount (
+        id INTEGER NOT NULL, 
+        date_created DATETIME, 
+        creator BOOLEAN NOT NULL, 
+        viewer BOOLEAN NOT NULL, 
+        account_id INTEGER NOT NULL, 
+        topic_id INTEGER NOT NULL, 
+        PRIMARY KEY (id), 
+        CHECK (creator IN (0, 1)), 
+        CHECK (viewer IN (0, 1)), 
+        FOREIGN KEY(account_id) REFERENCES account (id), 
+        FOREIGN KEY(topic_id) REFERENCES topic (id)
+)
+```
 
 
 ## Keskeisimmät käyttötapaukset ja niihin liittyvät SQL-kyselyt
@@ -388,88 +470,6 @@ UPDATE
 DELETE 
     FROM Comment 
     WHERE Comment.id = ?
-```
-
-
-## Tietokantarakenteen kuvaus
-
-Sovelluksen tietokanta on normalisoitu kolmanteen normaalimuotoon ja sen lopullinen tietokantarakenne vastaa oheista [tietokantakaaviota](./documentation/database_schema.JPG). Tietokannan CREATE TABLE -lauseet:
-
-* Account-taulu
-
-```
-CREATE TABLE account (
-        id INTEGER NOT NULL, 
-        date_created DATETIME, 
-        date_modified DATETIME, 
-        name VARCHAR(144) NOT NULL, 
-        username VARCHAR(144) NOT NULL, 
-        password VARCHAR(144) NOT NULL, 
-        role VARCHAR(10), 
-        PRIMARY KEY (id)
-)
-```
-
-* Forum-taulu
-
-```
-CREATE TABLE forum (
-        id INTEGER NOT NULL, 
-        date_created DATETIME, 
-        date_modified DATETIME, 
-        name VARCHAR(144) NOT NULL, 
-        description VARCHAR(1000) NOT NULL, 
-        PRIMARY KEY (id)
-)
-```
-
-* Topic-taulu
-
-```
-CREATE TABLE topic (
-        id INTEGER NOT NULL, 
-        date_created DATETIME, 
-        date_modified DATETIME, 
-        title VARCHAR(144) NOT NULL, 
-        bodytxt VARCHAR(1444) NOT NULL, 
-        forum_id INTEGER NOT NULL, 
-        PRIMARY KEY (id), 
-        FOREIGN KEY(forum_id) REFERENCES forum (id)
-)
-```
-
-* Comment-taulu
-
-```
-CREATE TABLE comment (
-        id INTEGER NOT NULL, 
-        date_created DATETIME, 
-        date_modified DATETIME, 
-        bodytxt VARCHAR(1444) NOT NULL, 
-        account_id INTEGER NOT NULL, 
-        topic_id INTEGER NOT NULL, 
-        PRIMARY KEY (id), 
-        FOREIGN KEY(account_id) REFERENCES account (id), 
-        FOREIGN KEY(topic_id) REFERENCES topic (id)
-)
-```
-
-* Topicaccount-taulu
-
-```
-CREATE TABLE topicaccount (
-        id INTEGER NOT NULL, 
-        date_created DATETIME, 
-        creator BOOLEAN NOT NULL, 
-        viewer BOOLEAN NOT NULL, 
-        account_id INTEGER NOT NULL, 
-        topic_id INTEGER NOT NULL, 
-        PRIMARY KEY (id), 
-        CHECK (creator IN (0, 1)), 
-        CHECK (viewer IN (0, 1)), 
-        FOREIGN KEY(account_id) REFERENCES account (id), 
-        FOREIGN KEY(topic_id) REFERENCES topic (id)
-)
 ```
 
 
