@@ -13,7 +13,7 @@ from flask_login import current_user, login_required
 def topic_index(forum_id):
     
     return render_template("topics/topicstream.html", forums = Forum.query.filter_by(id=forum_id), forum_id=forum_id, 
-                                topics = Topic.find_topics_by_forum(forum_id), form = TopicForm(), form2 = CommentForm())
+                                topics = Topic.find_topics_by_forum(forum_id), form = TopicForm())
 
 # lisää kirjoitus -lomake
 @app.route("/forum/<forum_id>/topics/create", methods=["POST"])
@@ -24,7 +24,8 @@ def topic_create(forum_id):
     
     # Lomakkeen tietojen validointi
     if not form.validate_on_submit():
-        return render_template('topics/list.html', forums = Forum.query.filter_by(id=forum_id), topics = Topic.find_topics_by_forum(forum_id), form=form,
+        return render_template("topics/topicstream.html", forums = Forum.query.filter_by(id=forum_id), forum_id=forum_id, 
+                                topics = Topic.find_topics_by_forum(forum_id), form = TopicForm(),
                                 error = "Otsikon tulee olla 1-144 merkkiä pitkä")
 
     topic = Topic(form.title.data, form.bodytxt.data)
@@ -111,14 +112,16 @@ def user_profile_update():
 
     # Jos käyttäjätunnus löytyy tietokannasta, mutta se ei ole aktiivisen käyttäjän käyttäjätunnus
     if username and user != username:
-        return render_template("user/profile.html", user = user, topics = Topic.find_user_topics(current_user.id), 
-                    stats = Topic.find_user_statistics(current_user.id), form=RegisterForm(name=user.name, username=user.username, password=user.password),
+        return render_template("user/profile.html", user = user, topics = Topic.find_user_topics(current_user.id), comments = Comment.find_user_comments(current_user.id), 
+                    stat1 = Topic.find_user_topic_count(current_user.id), stat2 = Topic.find_user_comment_count(current_user.id),
+                    form=RegisterForm(name=user.name, username=user.username, password=user.password),
                                error = "Käyttäjätunnus jo käytössä. Valitse uusi käyttäjänimi ja lähetä tiedot uudelleen.")
 
     # Lomakkeen tietojen validointi
     if not form.validate_on_submit():
-        return render_template("user/profile.html", user = user, topics = Topic.find_user_topics(current_user.id), 
-                    stats = Topic.find_user_statistics(current_user.id), form=RegisterForm(name=user.name, username=user.username, password=user.password),
+        return render_template("user/profile.html", user = user, topics = Topic.find_user_topics(current_user.id), comments = Comment.find_user_comments(current_user.id), 
+                    stat1 = Topic.find_user_topic_count(current_user.id), stat2 = Topic.find_user_comment_count(current_user.id),
+                    form=RegisterForm(name=user.name, username=user.username, password=user.password),
                     error = "Nimen, käyttäjätunnuksen ja salasanan oltava vähintään 1 merkkiä pitkiä.")
 
     user = User.query.filter_by(id=user.id).first()
@@ -138,9 +141,10 @@ def comment_create(topic_id):
     
     # Lomakkeen tietojen validointi
     if not form.validate_on_submit():
-        return render_template("topics/commentstream.html", topic_id=topic_id, topics = Topic.find_topic_data(topic_id), comments = Comment.find_comments_by_topic(topic_id), form = CommentForm(),
+        return render_template("topics/commentstream.html", topic_id=topic_id, topics = Topic.find_topic_data(topic_id), comments = Comment.find_comments_by_topic(topic_id)
+                        , viewers = Topicaccount.find_topic_viewer_count(topic_id), form = CommentForm(),
                                 error = "Kommentin tulee olla 1-1444 merkkiä pitkä")
-
+    
     comment = Comment(form.bodytxt.data)
     comment.topic_id = topic_id
     comment.account_id = current_user.id

@@ -9,8 +9,9 @@ Toteutetut käyttötapaukset:
 * foorumien lisääminen, muokkaus ja poistaminen sekä palvelun käytön tilastoja ylläpitäjän hallintapaneelissa
 * mahdollisuus kommentoida kirjoitusta
 * kommentin muokkaaminen ja poistaminen omalla sivulla
-* kirjoituskohtaisen tilastoinnin kehitys: kirjoituksen lukukerrat ja kuinka moni käyttäjä on nähnyt kirjoituksen
+* kirjoituskohtainen tilastointi: kirjoituksen lukukerrat ja kuinka moni käyttäjä on nähnyt kirjoituksen
 
 Toteuttamatta jääneet käyttötapaukset, jotka siirretään jatkoprojektille:
 * hakutoiminnallisuus, jolla mahdollista etsiä hakusanalla fooremeita, kirjoituksia ja kommentteja
 * listausten sivutus
+* salasanojen salaaminen tietokannassa
