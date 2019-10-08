@@ -85,7 +85,7 @@ CREATE TABLE account (
         password VARCHAR(144) NOT NULL, 
         role VARCHAR(10), 
         PRIMARY KEY (id)
-)
+);
 ```
 
 * Forum-taulu
@@ -98,7 +98,7 @@ CREATE TABLE forum (
         name VARCHAR(144) NOT NULL, 
         description VARCHAR(1000) NOT NULL, 
         PRIMARY KEY (id)
-)
+);
 ```
 
 * Topic-taulu
@@ -113,7 +113,7 @@ CREATE TABLE topic (
         forum_id INTEGER NOT NULL, 
         PRIMARY KEY (id), 
         FOREIGN KEY(forum_id) REFERENCES forum (id)
-)
+);
 ```
 
 * Comment-taulu
@@ -129,7 +129,7 @@ CREATE TABLE comment (
         PRIMARY KEY (id), 
         FOREIGN KEY(account_id) REFERENCES account (id), 
         FOREIGN KEY(topic_id) REFERENCES topic (id)
-)
+);
 ```
 
 * Topicaccount-taulu
@@ -147,7 +147,7 @@ CREATE TABLE topicaccount (
         CHECK (viewer IN (0, 1)), 
         FOREIGN KEY(account_id) REFERENCES account (id), 
         FOREIGN KEY(topic_id) REFERENCES topic (id)
-)
+);
 ```
 
 
@@ -447,10 +447,12 @@ UPDATE
 DELETE 
     FROM Topicaccount 
     WHERE Topicaccount.id = ?
+    ;
 
 DELETE 
     FROM Topic 
     WHERE Topic.id = ?
+    ;
 ```
 * Kommentin tietojen päivittäminen (Comment_id parametrina. Kaikkia kirjoituksen kenttiä ei tarvitse muokata)
 ```
@@ -470,6 +472,7 @@ UPDATE
 DELETE 
     FROM Comment 
     WHERE Comment.id = ?
+    ;
 ```
 
 
