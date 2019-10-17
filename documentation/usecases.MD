@@ -5,12 +5,36 @@ Sovellus on kehitetty Helsingin Yliopiston kurssin Tietokantasovellus projektina
 
 ## Sovellukseen toteutetut käyttötapaukset:
 
-* *Rekisteröityminen ja kirjautuminen palveluun:* Käyttäjä löytää palvelun etusivulta helposti linkit rekisteröitymis- ja kirjautumislomakkeelle. Rekisteröitymislomakkeen täytettyään käyttäjä siirretään automaattisesti kirjautumislomakkeelle. Kirjautumisen jälkeen käyttäjä siirretään automaattisesti foorumeiden listaussivulle.
-* *Listaus foorumeista:* Kirjautumisen jälkeen käyttäjälle listataan palvelun foorumit ja olennaista tilastotietoa foorumien käytöstä. Valittua foorumia klikkaamalla pääsee foorumin etusivulle 
-* *Foorumin etusivu:* Valitun foorumin etusivulla listataan foorumille laaditut kirjoitukset ja näytetään olennaisia tilastoja kirjoituksista, kuten kirjoituskohtaisten kommenttien määrät.
-* *Kirjoitusten lisääminen ja niiden kommentointi:* Kirjoituksia voi lisätä foorumin etusivulta lomakkeella. Lisätyt kirjoitukset listataan lyhyesti foorumin etusivulla ja niiden ohessa olevaa nappia painamalla pääsee siirtymään kirjoituskohtaiseen näkymään. Kaikki käyttäjät voivat kommentoida kirjoituksia kirjoituskohtaisesta näkymästä, josta näkee myös kuinka moni käyttäjä on nähnyt kirjoituksen ja montako kertaa kirjoitussivu on ladattu.
-* *Käyttäjän omat sivut:* Käyttäjä pääsee navigaation kautta omalle sivulle, jossa tämä pystyy muuttamaan omia käyttäjätietojaan (nimi, käyttäjänimi ja salasana). Käyttäjälle listataan tämän laatimat kirjoitukset ja kommentit olennaisten tilastojen kanssa ja annetaan mahdollisuus niiden muokkaamiseen ja poistamiseen.
-* *Ylläpitäjän paneeli:* Vain ylläpitäjä pääsee navigaation kautta näkymään, jossa pystyy lisäämään, muokkaamaan ja poistamaan foorumeita. Näkymään tilastoidaan lisäksi olennaisia tunnuslukuja foorumeittain ja koko palvelun osalta. 
+### Rekisteröityminen ja kirjautuminen palveluun
+
+* Käyttäjä löytää palvelun etusivulta helposti linkit rekisteröitymis- ja kirjautumislomakkeelle. 
+* Rekisteröitymislomakkeen täytettyään käyttäjä siirretään automaattisesti kirjautumislomakkeelle. 
+* Kirjautumisen jälkeen käyttäjä siirretään automaattisesti foorumeiden listaussivulle.
+
+### Listaus foorumeista
+
+* Kirjautumisen jälkeen käyttäjälle listataan palvelun foorumit ja olennaista tilastotietoa foorumien käytöstä. 
+* Valittua foorumia klikkaamalla pääsee foorumin etusivulle 
+
+### Foorumin etusivu
+
+* Valitun foorumin etusivulla listataan foorumille laaditut kirjoitukset ja näytetään olennaisia tilastoja kirjoituksista, kuten kirjoituskohtaisten kommenttien määrät.
+
+### Kirjoitusten lisääminen ja niiden kommentointi
+
+* Kirjoituksia voi lisätä foorumin etusivulta lomakkeella. 
+* Lisätyt kirjoitukset listataan lyhyesti foorumin etusivulla ja niiden ohessa olevaa nappia painamalla pääsee siirtymään kirjoituskohtaiseen näkymään.
+* Kaikki käyttäjät voivat kommentoida kirjoituksia kirjoituskohtaisesta näkymästä, josta näkee myös kuinka moni käyttäjä on nähnyt kirjoituksen ja montako kertaa kirjoitussivu on ladattu.
+
+### Käyttäjän omat sivut
+
+* Käyttäjä pääsee navigaation kautta omalle sivulle, jossa tämä pystyy muuttamaan omia käyttäjätietojaan (nimi, käyttäjänimi ja salasana). 
+* Käyttäjälle listataan tämän laatimat kirjoitukset ja kommentit olennaisten tilastojen kanssa ja annetaan mahdollisuus niiden muokkaamiseen ja poistamiseen.
+
+### Ylläpitäjän paneeli
+
+* Vain ylläpitäjä pääsee navigaation kautta näkymään, jossa pystyy lisäämään, muokkaamaan ja poistamaan foorumeita. 
+* Näkymään tilastoidaan olennaisia tunnuslukuja foorumeittain ja koko palvelun osalta. 
 
 
 ## Sovelluksen rajoitteet ja jatkokehitysprojektille siirrettävät käyttötapaukset:
