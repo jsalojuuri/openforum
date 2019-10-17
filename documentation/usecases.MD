@@ -1,20 +1,33 @@
 # Keskeisimmät käyttötapaukset
 
-Toteutetut käyttötapaukset:
-* rekisteröityminen ja kirjautuminen palveluun
-* listaus ja tilastointia palvelun foorumeista
-* listaus ja tilastointia palvelun kirjoituksista foorumeittain
-* kirjoitusten lisääminen, muokkaaminen ja poistaminen
-* käyttäjäprofiilin (käyttäjätietojen) muokkaus, omien kirjoitusten muokkaaminen ja poistaminen sekä käyttäjäkohtaisia tilastoja käyttäjän omilla sivuilla
-* foorumien lisääminen, muokkaus ja poistaminen sekä palvelun käytön tilastoja ylläpitäjän hallintapaneelissa
-* mahdollisuus kommentoida kirjoitusta
-* kommentin muokkaaminen ja poistaminen omalla sivulla
-* kirjoituskohtainen tilastointi: kirjoituksen lukukerrat ja kuinka moni käyttäjä on nähnyt kirjoituksen
+Sovellus on kehitetty Helsingin Yliopiston kurssin Tietokantasovellus projektina syys-lokakuussa 2019. Kurssin aikana toteutettiin suurin osa kurssin alussa suunnitelluista käyttötapauksista ja sovellus on jo sellaisenaan toimiva pienen ryhmän keskustelufoorumiksi. Ohessa on ensin lyhyesti kuvaukset toteutetuista käyttötapauksista, jonka jälkeen on huomioita sovelluksen rajoituksista ja ajatuksia toteuttamatta jääneiden käyttötapausten jatkokehityksestä. Lopuksi on vielä kattavampi kuvaus toteutettujen käyttötapausten SQL-kyselyistä näkymäkohtaisesti. 
 
-Toteuttamatta jääneet käyttötapaukset, jotka siirretään jatkoprojektille:
-* hakutoiminnallisuus, jolla mahdollista etsiä hakusanalla fooremeita, kirjoituksia ja kommentteja
-* listausten sivutus
-* salasanojen salaaminen tietokannassa
+
+## Sovellukseen toteutetut käyttötapaukset:
+
+* *Rekisteröityminen ja kirjautuminen palveluun:* Käyttäjä löytää palvelun etusivulta helposti linkit rekisteröitymis- ja kirjautumislomakkeelle. Rekisteröitymislomakkeen täytettyään käyttäjä siirretään automaattisesti kirjautumislomakkeelle. Kirjautumisen jälkeen käyttäjä siirretään automaattisesti foorumeiden listaussivulle.
+* *Listaus foorumeista:* Kirjautumisen jälkeen käyttäjälle listataan palvelun foorumit ja olennaista tilastotietoa foorumien käytöstä. Valittua foorumia klikkaamalla pääsee foorumin etusivulle 
+* *Foorumin etusivu:* Valitun foorumin etusivulla listataan foorumille laaditut kirjoitukset ja näytetään olennaisia tilastoja kirjoituksista, kuten kirjoituskohtaisten kommenttien määrät.
+* *Kirjoitusten lisääminen ja niiden kommentointi:* Kirjoituksia voi lisätä foorumin etusivulta lomakkeella. Lisätyt kirjoitukset listataan lyhyesti foorumin etusivulla ja niiden ohessa olevaa nappia painamalla pääsee siirtymään kirjoituskohtaiseen näkymään. Kaikki käyttäjät voivat kommentoida kirjoituksia kirjoituskohtaisesta näkymästä, josta näkee myös kuinka moni käyttäjä on nähnyt kirjoituksen ja montako kertaa kirjoitussivu on ladattu.
+* *Käyttäjän omat sivut:* Käyttäjä pääsee navigaation kautta omalle sivulle, jossa tämä pystyy muuttamaan omia käyttäjätietojaan (nimi, käyttäjänimi ja salasana). Käyttäjälle listataan tämän laatimat kirjoitukset ja kommentit olennaisten tilastojen kanssa ja annetaan mahdollisuus niiden muokkaamiseen ja poistamiseen.
+* *Ylläpitäjän paneeli:* Vain ylläpitäjä pääsee navigaation kautta näkymään, jossa pystyy lisäämään, muokkaamaan ja poistamaan foorumeita. Näkymään tilastoidaan lisäksi olennaisia tunnuslukuja foorumeittain ja koko palvelun osalta. 
+
+
+## Sovelluksen rajoitteet ja jatkokehitysprojektille siirrettävät käyttötapaukset:
+
+Sovelluksesta puuttuu toistaiseksi työkalut foorumien ja kirjoitusten hakemiseen, tietokantahakujen listauksia ei ole sivutettu sovelluksessa mitenkään eikä salasanoja ole salattu tietokannassa. Ohessa ajatuksia näiden jatkokehityksestä.
+
+### Hakutoiminnallisuus, jolla mahdollista etsiä hakusanalla fooremeita, kirjoituksia ja kommentteja
+
+* Hakutoiminallisuuden toteutus on käytettävyyden kannalta välttämätöntä, jotta foorumi olisi toimiva sisällön määrän kasvaessa. Tämän hetkisen tiedon perusteella toteutus kannattaisi tehdä Pythonin [Whoosh-kirjaston](https://whoosh.readthedocs.io/en/latest/intro.html) avulla. Whooshiin on olemassa myös [SQLAlchemy integraatio](https://flask-whooshee.readthedocs.io/en/latest/), joka oletettavasti nopeuttaisi toteutusta.
+
+### Listausten sivutus
+
+* Listauksia, kuten Open Forumiin luotuja foorumeita, foorumin kirjoituksia tai kirjoituksen kommentteja voi niputtaa esim. kymmenen esiintymän ryhmiin per sivu, mikä parantaisi sovelluksen käytettävyyttä sisällön määrän kasvaessa. Sivutuksen toteutukseen Flask-ympäristössä voi tutustua esim. [Miguel Grinbergin blogin avulla](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-ix-pagination).
+
+### Salasanojen salaaminen tietokannassa
+
+* Salaamisella parannetaan sovelluksen tietoturvallisuutta. Salasanojen saluksella estetään käyttäjien salasanojen vuotaminen niin ylläpitäjille kuin pahantahtoisille henkilöille mahdollisen tietomurron yhteydessä. Salauksella tietokantaan tallennetut salasanat ovat normaalisti käytettävissä sovelluksen tarpeisiin, mutta näyttävät tunnistamattomilta merkkijonoilta salausalgoritmin käsittelyn jälkeen. Yksi varteenotettava salasanojen suojaamiseen käytettävä kirjasto Pythonilla on [Passlib](https://passlib.readthedocs.io/en/stable/), josta löytyy yli 30 erilaista salasanojen salausalgoritmia. 
 
 
 ## Käyttötapauksiin liittyvät SQL-kyselyt näkymäkohtaisesti

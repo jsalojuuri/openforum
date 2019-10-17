@@ -62,11 +62,10 @@ Ylläpitäjänä voit edellisten lisäksi luoda, poistaa ja muokata foorumeita.
 
 ## Linkit
 
-* [Projekti Herokussa](http://tsoha-open-forum.herokuapp.com)
-* [Käyttötapaukset ja niihin liittyvät SQL-kyselyt](./documentation/usecases.MD)
-* [Sovelluksen rajoitteet ja jatkokehitys](./documentation/restrictions_and_further_development.MD)
+* [Sovelluksen käyttötapaukset, rajoitteet ja jatkokehitys](./documentation/usecases.MD)
 * [Tietokantakaavio](./documentation/database_schema.JPG)
 * [Tietokannan CREATE TABLE komennot](./documentation/database_create_table_commands.MD)
+* [Projekti Herokussa](http://tsoha-open-forum.herokuapp.com)
 
 
 
