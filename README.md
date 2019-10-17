@@ -1,6 +1,6 @@
 # Open Forum - Keskustelufoorumi aiheelle kuin aiheelle
 
-Open Forumille rekisteröityneet ja kirjautuneet käyttäjät voivat julkaista kirjoituksia ja kommentoida omia ja toisten kirjoituksia erilaisilla foorumeilla. Omia kirjoituksia, kommentteja ja käyttäjätietoja voi muokata jälkikäteen. Vain pääkäyttäjät voivat luoda ja muokata foorumeita. Katso tarkemmin [käyttötapausten dokumentaatiosta](./documentation/usecases.txt).
+Open Forumille rekisteröityneet ja kirjautuneet käyttäjät voivat julkaista kirjoituksia ja kommentoida omia ja toisten kirjoituksia erilaisilla foorumeilla. Omia kirjoituksia, kommentteja ja käyttäjätietoja voi muokata jälkikäteen. Vain pääkäyttäjät voivat luoda ja muokata foorumeita. Katso tarkemmin [käyttötapausten dokumentaatiosta](./documentation/usecases.MD).
 
 
 ## Asennusohje
